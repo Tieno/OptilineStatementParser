@@ -1,9 +1,0 @@
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\bin\Debug\BankStatementImporter.dll
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\bin\Debug\BankStatementImporter.pdb
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\bin\Debug\itextsharp.dll
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\bin\Debug\nunit.framework.dll
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\bin\Debug\itextsharp.xml
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\bin\Debug\nunit.framework.xml
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\obj\Debug\BankStatementImporter.csprojResolveAssemblyReference.cache
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\obj\Debug\BankStatementImporter.dll
-c:\users\candice\documents\visual studio 2012\Projects\BankStatementImporter\BankStatementImporter\obj\Debug\BankStatementImporter.pdb
