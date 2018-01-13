@@ -1,7 +1,7 @@
 # BankStatementImporter
 ## Reads PDF bank statements
 
-<i>I haven't tested this thoroughly - it works for one of my statements from my FNB check account.</i>
+<i>I have tested this with a few of my FNB check account statements over 2016 and 2017. I still need to test this with credit card statements</i>
 
 <pre><code>//This is the statement as e-mailed to me by FNB
 private const string PdfFileName = @"C:\Bank Statements\statement_file_name.pdf";</pre></code>
