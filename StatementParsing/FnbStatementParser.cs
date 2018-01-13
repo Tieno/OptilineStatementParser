@@ -25,7 +25,7 @@ namespace BankStatementImporter.StatementParsing
             var textFromStatement = getLinesFromStatement(pdfFileName);
 
             var metaData = _fnbStatementMetaDataReader.getStatementMetaData(textFromStatement);
-            var transactions = _fnbStatementTransactionReader.getTransactions(textFromStatement);
+            var transactions = _fnbStatementTransactionReader.getTransactions(textFromStatement, metaData.StartDate, metaData.EndDate);
 
             return new Statement(textFromStatement, metaData, transactions);
         }

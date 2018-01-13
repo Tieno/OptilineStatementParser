@@ -14,9 +14,10 @@ namespace BankStatementImporter.StatementParsing.Transactions
             _transactionLineParser = transactionLineParser;
         }
 
-        public IEnumerable<StatementTransaction> getTransactions(List<string> linesFromStatement)
+        public IEnumerable<StatementTransaction> getTransactions(List<string> linesFromStatement, DateTime statementStartDate, DateTime statementEndDate)
         {
-            return getTransactionLinesFromStatement(linesFromStatement).Select(_transactionLineParser.Parse);
+            return getTransactionLinesFromStatement(linesFromStatement)
+                .Select(lineFromStatement=>_transactionLineParser.Parse(lineFromStatement, statementStartDate, statementEndDate));
         }
 
         private IEnumerable<string> getTransactionLinesFromStatement(IEnumerable<string> linesFromStatement)

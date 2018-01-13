@@ -1,18 +1,20 @@
-using NUnit.Framework.Constraints;
+using System;
 
 namespace BankStatementImporter.Models
 {
     public class StatementTransaction
     {
+        public DateTime Date { get; }
+        public decimal Amount { get; }
         public string Reference { get; }
         public decimal AccountBalance { get; }
-        public decimal Amount { get; }
 
-        public StatementTransaction(decimal amount, decimal accountBalance, string reference)
+        public StatementTransaction(DateTime date, decimal amount, string reference, decimal accountBalance)
         {
+            Date = date;
             Amount = amount;
-            AccountBalance = accountBalance;
             Reference = reference;
+            AccountBalance = accountBalance;
         }
     }
 }
