@@ -4,17 +4,16 @@ namespace BankStatementImporter.Models
 {
     public class StatementTransaction
     {
-        public DateTime Date { get; }
-        public decimal Amount { get; }
-        public string Reference { get; }
-        public decimal AccountBalance { get; }
+        public DateTime Date { get; set; }
+        public decimal Amount { get; set; }
+        public string Reference { get; set; }
+        public decimal AccountBalance { get; set; }
 
-        public StatementTransaction(DateTime date, decimal amount, string reference, decimal accountBalance)
-        {
-            Date = date;
-            Amount = amount;
-            Reference = reference;
-            AccountBalance = accountBalance;
-        }
+        public string Description { get; set; }
+        public string Country { get; set; }
+
+        public string CounterParty { get; set; }
+
+        
     }
 }

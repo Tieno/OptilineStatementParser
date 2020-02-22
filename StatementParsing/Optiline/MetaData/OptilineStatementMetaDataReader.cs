@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using BankStatementImporter.Models;
 
-namespace BankStatementImporter.StatementParsing.MetaData
+namespace BankStatementImporter.StatementParsing.Optiline.MetaData
 {
-    public class FnbStatementMetaDataReader
+    public class OptilineStatementMetaDataReader
     {
         public StatementMetaData getStatementMetaData(IList<string> linesFromStatement)
         {
@@ -21,30 +21,32 @@ namespace BankStatementImporter.StatementParsing.MetaData
 
         private DateTime getStatementDate(IEnumerable<string> linesFromStatement)
         {
-            var dateString = linesFromStatement.First(line => line.StartsWith("Statement Date"));
+            var dateString = linesFromStatement.First(line => line.Contains("Uw overzicht op"));
+
             return extractStatementPeriodDates(dateString).First();
         }
 
         private List<DateTime> getStatementPeriodDates(IEnumerable<string> linesFromStatement)
         {
-            var dateString = linesFromStatement.First(line => line.StartsWith("Statement Period"));
+            var dateString = linesFromStatement.First(line => line.Contains("Uw overzicht op"));
             return extractStatementPeriodDates(dateString);
         }
 
         private decimal getOpeningBalance(IEnumerable<string> linesFromStatement)
         {
-            var openingBal = linesFromStatement.First(line => line.StartsWith("Opening Balance"));
-            return getBalanceFromString(openingBal);
+            return new decimal(5000);
         }
 
         private decimal getClosingBalance(IList<string> linesFromStatement)
         {
-            var closingBal = linesFromStatement.First(line => line.StartsWith("Closing Balance"));
+            var index = linesFromStatement.IndexOf("Uw beschikbaar bedrag :");
+            var closingBal = linesFromStatement[index+1];
             return getBalanceFromString(closingBal);
         }
 
         private decimal getBalanceFromString(string openingBal)
         {
+            openingBal = openingBal.Replace(" \u0080", "");
             var numbersFromString = parseDecimalValue(openingBal);
             var isDr = openingBal.ToUpper().EndsWith("DR");
             return applySignChange(numbersFromString, isDr);
@@ -59,9 +61,9 @@ namespace BankStatementImporter.StatementParsing.MetaData
         {
             var partsWithNoSpaces = textToSearch.Split(' ');
             var datesFoundInString = new List<DateTime>();
-            for (var i = 0; i < partsWithNoSpaces.Length - 2; i++)
+            for (var i = 0; i < partsWithNoSpaces.Length ; i++)
             {
-                var tryDate = $"{partsWithNoSpaces[i]} {partsWithNoSpaces[i + 1]} {partsWithNoSpaces[i + 2]}";
+                var tryDate = partsWithNoSpaces[i];
                 DateTime date;
                 if (DateTime.TryParse(tryDate, out date))
                 {
@@ -73,11 +75,8 @@ namespace BankStatementImporter.StatementParsing.MetaData
 
         private decimal parseDecimalValue(string textToSearch)
         {
-            var numbersInString = string.Join("", textToSearch.Where(c => ".0123456789".Contains(c)));
-            if (numbersInString.Length == 0)
-                throw new StatementParseException("Could not locate number in line '" +
-                                                  textToSearch + "'");
-            return decimal.Parse(numbersInString);
+            var dec = decimal.Parse(textToSearch.Replace(".",""));
+            return dec;
         }
     }
 }

@@ -10,6 +10,11 @@ namespace BankStatementImporter.Models
         public decimal OpeningBalance { get; private set; }
         public decimal ClosingBalance { get; }
 
+        public decimal TotalAmount
+        {
+            get { return this.OpeningBalance - ClosingBalance; }
+        }
+
         public StatementMetaData(DateTime statementDate, DateTime startDate, DateTime endDate, decimal openingBalance, decimal closingBalance)
         {
             StatementDate = statementDate;

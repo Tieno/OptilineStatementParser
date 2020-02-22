@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using BankStatementImporter.Models;
-using BankStatementImporter.StatementParsing.MetaData;
-using BankStatementImporter.StatementParsing.Transactions;
+using BankStatementImporter.StatementParsing.Optiline.MetaData;
+using BankStatementImporter.StatementParsing.Optiline.Transactions;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 
@@ -11,21 +11,21 @@ namespace BankStatementImporter.StatementParsing
 {
     public class FnbStatementParser
     {
-        private readonly FnbStatementMetaDataReader _fnbStatementMetaDataReader;
-        private readonly FnbStatementTransactionReader _fnbStatementTransactionReader;
+        private readonly OptilineStatementMetaDataReader _optilineStatementMetaDataReader;
+        private readonly OptilineStatementTransactionReader _optilineStatementTransactionReader;
 
-        public FnbStatementParser(FnbStatementMetaDataReader fnbStatementMetaDataReader, FnbStatementTransactionReader fnbStatementTransactionReader)
+        public FnbStatementParser(OptilineStatementMetaDataReader optilineStatementMetaDataReader, OptilineStatementTransactionReader optilineStatementTransactionReader)
         {
-            _fnbStatementMetaDataReader = fnbStatementMetaDataReader;
-            _fnbStatementTransactionReader = fnbStatementTransactionReader;
+            _optilineStatementMetaDataReader = optilineStatementMetaDataReader;
+            _optilineStatementTransactionReader = optilineStatementTransactionReader;
         }
 
         public Statement ParseStatement(string pdfFileName)
         {
             var textFromStatement = getLinesFromStatement(pdfFileName);
 
-            var metaData = _fnbStatementMetaDataReader.getStatementMetaData(textFromStatement);
-            var transactions = _fnbStatementTransactionReader.getTransactions(textFromStatement, metaData.StartDate, metaData.EndDate);
+            var metaData = _optilineStatementMetaDataReader.getStatementMetaData(textFromStatement);
+            var transactions = _optilineStatementTransactionReader.getTransactions(textFromStatement, metaData.StartDate, metaData.EndDate).ToArray();
 
             return new Statement(textFromStatement, metaData, transactions);
         }
